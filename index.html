@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -41,13 +41,6 @@
     .hidden {
       display: none;
     }
-    <!-- عرض محتوى Google Drive -->
-<div id="driveView" class="section hidden">
-  <div style="text-align: left;">
-    <button onclick="closeDriveView()" style="font-size: 24px; background: none; border: none; color: #004d40; cursor: pointer;">&#8592; رجوع</button>
-  </div>
-  <iframe id="driveIframe" style="width: 100%; height: 80vh; border: none; margin-top: 10px;"></iframe>
-</div>
     footer {
       margin-top: 40px;
       font-size: 14px;
@@ -198,7 +191,7 @@
       document.getElementById("subjects").classList.add("hidden");
     }
 
-function openDriveLink(stream, subject) {
+    function openDriveLink(stream, subject) {
   const url = driveLinks[stream]?.[subject];
   if (url) {
     const viewerURL = `viewer.html?title=${encodeURIComponent(subject)}&link=${encodeURIComponent(url)}`;
@@ -206,7 +199,8 @@ function openDriveLink(stream, subject) {
   } else {
     alert("الرابط غير متوفر لهذه المادة بعد.");
   }
-}    
+      }
+    
   
   </script></body>
 </html>
