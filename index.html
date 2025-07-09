@@ -1,7 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html><html lang="ar">
+<!DOCTYPE html>
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-adsense-account" content="ca-pub-1837620279187964">
   <title>S-I Bᴀᴄᵈᶻᵃᶦʳ</title>
   <style>
     body {
@@ -11,48 +13,60 @@
       text-align: center;
       direction: rtl;
       padding: 20px;
-    }.section {
-  margin: 30px auto;
-  max-width: 800px;
-}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1837620279187964"
-     crossorigin="anonymous"></script>
-.card {
-  background-color: #b2dfdb;
-  border: 1px solid #80cbc4;
-  border-radius: 12px;
-  padding: 15px;
-  margin: 10px auto;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  display: block;
-  width: 80%;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-.card:hover {
-  background-color: #80cbc4;
-}
-
-.card:active {
-  background-color: #4db6ac;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 14px;
-  color: #777;
-}
-
+    }
+    .section {
+      margin: 30px auto;
+      max-width: 800px;
+    }
+    .card {
+      background-color: #b2dfdb;
+      border: 1px solid #80cbc4;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px auto;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      display: block;
+      width: 80%;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+    .card:hover {
+      background-color: #80cbc4;
+    }
+    .card:active {
+      background-color: #4db6ac;
+    }
+    .hidden {
+      display: none;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
+    /* ستايل حاوية الإعلان */
+    .ad-container {
+      margin: 20px auto;
+      background: #f9f9f9;
+      border-radius: 8px;
+      padding: 10px;
+      max-width: 728px;
+    }
   </style>
+  <!-- كود AdSense الأساسي -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1837620279187964"
+          crossorigin="anonymous"></script>
 </head>
 <body>
+  <!-- إعلان أعلى الصفحة -->
+  <div class="ad-container">
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <div id="main" class="section">
     <h2>كل ما تحتاجه في البكالوريا</h2>
     <div class="card" onclick="showSubjects('شعبة علوم تجريبية')">شعبة علوم تجريبية</div>
@@ -61,13 +75,25 @@ footer {
     <div class="card" onclick="showSubjects('شعبة تسيير و إقتصاد')">شعبة تسيير و إقتصاد</div>
     <div class="card" onclick="showSubjects('شعبة لغات أجنبية')">شعبة لغات أجنبية</div>
     <div class="card" onclick="showSubjects('شعبة آداب و فلسفة')">شعبة آداب و فلسفة</div>
-  </div>  <div id="subjects" class="section hidden">
+  </div>
+
+  <!-- إعلان عند عرض المواد -->
+  <div id="subjects" class="section hidden">
     <h2>إختر ما تريد من القائمة أدناه</h2>
     <div id="subjectsList"></div>
+    <div class="ad-container">
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
     <div class="card" onclick="goBack()">الرجوع الى القائمة الرئيسية</div>
-  </div>  <footer>
+  </div>
+
+  <footer>
     جميع الحقوق محفوظة &copy; By Saidi Izeddine
-  </footer>  <script>
+  </footer>
+  
+    <script>
     const driveLinks = {
       "شعبة علوم تجريبية": {
         "مادة علوم الطبيعة و الحياة": "https://drive.google.com/drive/folders/1-_POdVPSf0H1Sq1yg_Q0EudCn1Vly5s7",
