@@ -192,14 +192,13 @@
     }
 
     function openDriveLink(stream, subject) {
-  const url = driveLinks[stream]?.[subject];
-  if (url) {
-    const viewerURL = `viewer.html?title=${encodeURIComponent(subject)}&link=${encodeURIComponent(url)}`;
-    window.open(viewerURL, '_blank');
-  } else {
-    alert("الرابط غير متوفر لهذه المادة بعد.");
-  }
+      const url = driveLinks[stream]?.[subject];
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        alert("الرابط غير متوفر لهذه المادة بعد.");
       }
+    }
     
   
   </script></body>
