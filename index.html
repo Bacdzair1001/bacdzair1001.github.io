@@ -1,0 +1,178 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html><html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S-I Bᴀᴄᵈᶻᵃᶦʳ</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #e0f2f1;
+      color: #004d40;
+      text-align: center;
+      direction: rtl;
+      padding: 20px;
+    }.section {
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.card {
+  background-color: #b2dfdb;
+  border: 1px solid #80cbc4;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px auto;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+  width: 80%;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.card:hover {
+  background-color: #80cbc4;
+}
+
+.card:active {
+  background-color: #4db6ac;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #777;
+}
+
+  </style>
+</head>
+<body>
+  <div id="main" class="section">
+    <h2>كل ما تحتاجه في البكالوريا</h2>
+    <div class="card" onclick="showSubjects('شعبة علوم تجريبية')">شعبة علوم تجريبية</div>
+    <div class="card" onclick="showSubjects('شعبة رياضيات')">شعبة رياضيات</div>
+    <div class="card" onclick="showSubjects('شعبة تقني رياضي')">شعبة تقني رياضي</div>
+    <div class="card" onclick="showSubjects('شعبة تسيير و إقتصاد')">شعبة تسيير و إقتصاد</div>
+    <div class="card" onclick="showSubjects('شعبة لغات أجنبية')">شعبة لغات أجنبية</div>
+    <div class="card" onclick="showSubjects('شعبة آداب و فلسفة')">شعبة آداب و فلسفة</div>
+  </div>  <div id="subjects" class="section hidden">
+    <h2>إختر ما تريد من القائمة أدناه</h2>
+    <div id="subjectsList"></div>
+    <div class="card" onclick="goBack()">الرجوع الى القائمة الرئيسية</div>
+  </div>  <footer>
+    جميع الحقوق محفوظة &copy; By Saidi Izeddine
+  </footer>  <script>
+    const driveLinks = {
+      "شعبة علوم تجريبية": {
+        "مادة علوم الطبيعة و الحياة": "https://drive.google.com/drive/folders/1-_POdVPSf0H1Sq1yg_Q0EudCn1Vly5s7",
+        "مادة العلوم الفيزيائية": "https://drive.google.com/drive/folders/1-_We4EHyqC0yddZnAbiWrjRXkVS4kDLC",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/1-e_M8qghTS3iITgGI-P3g_9uk2Ji3lrI",
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/1-gC_8zsORhNaaEOUPDJeBCyp7ev1UXq5",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/1-kO7ZpP95wyPyOkyIofVjnIZNA8bFELA",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/1-o32xCjh9Y4Qlfx7wxQGOVfKdNH6gNp0",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/1-pKf5C-COew90KoA-qSfLvHuijIlV0js",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/1-p_m3Dl5m9-PXBiY5p1HifLdizkbpmhi",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/1-s8F8vTTjoNKs0-zKor3QexWA8xHSY_m"
+      },
+      "شعبة رياضيات": {
+        "مادة علوم الطبيعة و الحياة": "https://drive.google.com/drive/folders/1BcWfyDyNblgickfJJQHDZWuGqwXXES9J",
+        "مادة العلوم الفيزيائية": "https://drive.google.com/drive/folders/1BeNSUJIb2AB3Q4OOT2bt8_aas5DHJQo0",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/1BYybcuwSvrBBpsfj0WlfJfgqmhMd6bEa",
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/1BlQBS8tg-IHwTsYTh7qh3IjyRiHZ-UzE",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/1Bpw9HQ8xQXcKmRUcwjCHheGWfegzKFSh",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/1C0h37BnPIIizUh3iGvKs4rN34nHIF9vP",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/1C302Hb9yHXYN7udSI1N2ISPE_Mha3gUj",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/1C9hExAZ4OuYn4q_o628pQYf7VME2OYce",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/1CCd9rSZtpkoMP_gFenyAQsjeHueQlHpe"
+      },
+      "شعبة تقني رياضي": {
+        "مادة الهندسة الميكانيكية": "https://drive.google.com/drive/folders/1FYz1p9SWbyLWeBx2X6MIci-hUukIMtDb",
+        "مادة الهندسة الكهربائية": "https://drive.google.com/drive/folders/1Fap6QdBkbE2zcP2Lzd6ELfAkzn5k1WNQ",
+        "مادة الهندسة المدنية": "https://drive.google.com/drive/folders/1Fh9WnekkP-cyiKuoz8C5HxU1aDcFW9r-",
+        "مادة هندسة الطرائق": "https://drive.google.com/drive/folders/1Fkf4DP4p_0qzLq0t_eNFk9y7_ys3q5mB",
+        "مادة العلوم الفيزيائية": "https://drive.google.com/drive/folders/1Foen4A_ReoEWQCYWFzsvE0EIKcZdSI7D",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/1FshOCkEeh1lV5PhO2fc53XZV7v6lMnEf",
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/1Fxa0K9rInr4ly7YKd_GmFnsNbVqpsahH",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/1G2RzIOY0brJ05nR2wTevMxz-u7NBrOYI",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/1G5kj0CL4xIfv0iAkZVPplL1K35A_rJRZ",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/1G5373XEP92c_AGQkwQj-PIRNnMRceJbo",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/1GC35O8fxQsIbuKedhLb7lXhROBH-VITI",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/1GHBLL99u80YwbC4IIIKs-32vAWJZNbg8"
+      },
+      "شعبة تسيير و إقتصاد": {
+        "مادة القانون": "https://drive.google.com/drive/folders/17M0Ljt4W6wkt0J6-PBzDnZKsEKmE-ZYr",
+        "مادة المحاسبة": "https://drive.google.com/drive/folders/17YP0mz2S_Rk9SwXPq8_832N-Dczn9AZo",
+        "مادة الإقتصاد": "https://drive.google.com/drive/folders/17aufVkq7e7dYLu_GEeHQ6TKt-9NumJTY",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/17bdzHNyUoXrcWNOTOZXRcoq5tb7b8xUL",
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/17fFnR_W-3dF2SuwjiOtzHW-viTUFKG7y",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/17hn2RR06wupmhYb0piOEWgjcC27-rKEM",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/17imJNWpSLSvLPJecgPcsEI7Tc8Grg4gM",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/17kw5oGojWmcdTxwCMkLY23fjjkyzkKK3",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/17owTPFDnBqqyMBtQF4BF6HTvbqiSCFr6",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/17wCLVoUCiqjiezYUAn4ZqVK1Hi7i9i2Z"
+      },
+      "شعبة لغات أجنبية": {
+        "مادة اللغة الإسبانية": "https://drive.google.com/drive/folders/1-7Llrm5F2mwCyUpEdpvG3xGHV_y_kFeu",
+        "مادة اللغة الإيطالية": "https://drive.google.com/drive/folders/1-AGtt1X1KAua8-_oxUsMBFggSeSPZEak",
+        "مادة اللغة الألمانية": "https://drive.google.com/drive/folders/1-HviPZ_XJ5de10gauoMOqSgGU1Tp0qDO",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/1-O0Y9YYdhCIM4RW-EcbzWEaJgLuql2Nf",
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/1-X4azOxYEOoZkU5j6zJrBnP0GY_dac_u",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/1-XxSBJBLrzEtu5R30A2ks4l_yFb4qJfd",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/1-bsL_4slt0yuGkN5VhBXPYaoMFw_cJA-",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/1-c4fII4Gp5L4n-Kwb9zff4hbdrjwPg31",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/1-ybxQ0cWr6NtO2emw5JmA309jsPRqt0s",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/1013OTgu69PcBDmcME0eunlZFk6D74Cc3"
+      },
+      "شعبة آداب و فلسفة": {
+        "مادة اللغة العربية و آدابها": "https://drive.google.com/drive/folders/10u081JERxvawMSZPrjPeziegPoZsbLwB",
+        "مادة الرياضيات": "https://drive.google.com/drive/folders/10yGSJjNNjhss20q2MQojKEXZSHkmODxI",
+        "مادة الشريعة الإسلامية": "https://drive.google.com/drive/folders/10vqZOl-tr4oaHdE-qe3Tuaz7y521sLX0",
+        "مادة الإجتماعيات": "https://drive.google.com/drive/folders/112mWLhHQLTJBcRhsA7xHG1oxn3uwz4gM",
+        "مادة الفلسفة": "https://drive.google.com/drive/folders/10yZTqTcnUKpDgBrMdmvfP4rTvp9FAzNK",
+        "مادة اللغة الإنجليزية": "https://drive.google.com/drive/folders/11CfanXURffbIhgfiUn_LlwBCi0qCq8R-",
+        "مادة اللغة الفرنسية": "https://drive.google.com/drive/folders/11MxV3j_zfkLxymgpnXdf7Upm5y3_cfnm"
+      }
+    };
+
+    let currentStream = "";
+
+    function showSubjects(stream) {
+      currentStream = stream;
+      document.getElementById("main").classList.add("hidden");
+      document.getElementById("subjects").classList.remove("hidden");
+
+      const subjectsDiv = document.getElementById("subjectsList");
+      subjectsDiv.innerHTML = "";
+
+      const subjects = driveLinks[stream];
+      for (let subject in subjects) {
+        const btn = document.createElement("button");
+        btn.className = "card";
+        btn.textContent = subject;
+        btn.onclick = () => openDriveLink(stream, subject);
+        subjectsDiv.appendChild(btn);
+      }
+    }
+
+    function goBack() {
+      document.getElementById("main").classList.remove("hidden");
+      document.getElementById("subjects").classList.add("hidden");
+    }
+
+    function openDriveLink(stream, subject) {
+      const url = driveLinks[stream]?.[subject];
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        alert("الرابط غير متوفر لهذه المادة بعد.");
+      }
+    }
+    
+  
+  </script></body>
+</html>
