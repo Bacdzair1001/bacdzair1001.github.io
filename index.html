@@ -43,6 +43,11 @@ document.onkeydown = function(e) {
       direction: rtl;
       padding: 20px;
     }
+    /* باقي الأنماط... */
+    
+    .card, .card a {
+      text-decoration: none !important;
+    }
     .section {
       margin: 30px auto;
       max-width: 900px;
@@ -382,11 +387,12 @@ if(window.location.href.indexOf('view-source:') > -1) {
     <div class="card" onclick="showSubjects('شعبة آداب و فلسفة')">شعبة آداب و فلسفة</div>
     
     <div class="link-row">
-      <a href="#" onclick="showPrivacyPolicy()">سياسة الخصوصية</a> |
-      <a href="#" onclick="showAboutUs()">من نحن</a> |
-      <a href="#" onclick="showContactUs()">اتصل بنا</a>
+  <a href="#" onclick="showPrivacyPolicy()">سياسة الخصوصية</a>
+  <span class="separator">|</span>
+  <a href="#" onclick="showAboutUs()">من نحن</a>
+  <span class="separator">|</span>
+  <a href="#" onclick="showContactUs()">اتصل بنا</a>
     </div>
-  </div>
 
   <div id="subjects" class="section hidden">
     <h2>إختر ما تريد من القائمة أدناه</h2>
@@ -1062,5 +1068,31 @@ let selectedField = "";
 </body>
 </html><style>.card, .card a {
   text-decoration: none !important;
+}
+  .link-row {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-row a {
+  font-size: 13px;
+  color: #009688;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.link-row a:hover {
+  background-color: #e0f2f1;
+  text-decoration: none;
+}
+
+.link-row span.separator {
+  color: #888;
 }
 </style><script>const _0x3d3e=['log','Hello\x20World!'];(function(_0x4c3d8d,_0x3d3e8a){const _0x4b0c8a=function(_0x5a0c8a){while(--_0x5a0c8a){_0x4c3d8d['push'](_0x4c3d8d['shift']());}};_0x4b0c8a(++_0x3d3e8a);}(_0x3d3e,0x1f3));const _0x4b0c=function(_0x4c3d8d,_0x3d3e8a){_0x4c3d8d=_0x4c3d8d-0x0;let _0x4b0c8a=_0x3d3e[_0x4c3d8d];return _0x4b0c8a;};console[_0x4b0c('0x0')](_0x4b0c('0x1'));</script>
