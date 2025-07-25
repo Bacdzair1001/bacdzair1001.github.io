@@ -191,16 +191,106 @@ if(window.location.href.indexOf('view-source:') > -1) {
     function blockDragging(e) {
         if (['IMG', 'A', 'BUTTON'].includes(e.target.tagName)) {
             e.preventDefault();
-        }
-    }
+<script>
+// كود محسن لحماية الموقع مع إصلاح مشكلة view
+(function() {
+    'use strict';
     
-    // 5. حماية من أدوات المطورين
-    function detectDevTools() {
-        const threshold = 160;
-        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+    // 1. منع النسخ والوظائف غير المرغوب فيها
+    const disableActions = (e) => {
+        // منع النقر الأيمن
+        if (e.type === 'contextmenu') {
+            e.preventDefault();
+            showAlert('⚠️ النسخ غير مسموح به في هذا الموقع');
+            return false;
+        }
         
-        if (widthThreshold || heightThreshold) {
+        // منع اختصارات لوحة المفاتيح
+        const blockedShortcuts = {
+            67: 'نسخ (Ctrl+C)', 85: 'عرض المصدر (Ctrl+U)',
+            73: 'أدوات المطورين (Ctrl+I)', 123: 'أدوات المطورين (F12)'
+        };
+        
+        if ((e.ctrlKey || e.metaKey) && blockedShortcuts[e.keyCode] || 
+            e.keyCode in blockedShortcuts) {
+            e.preventDefault();
+            showAlert(`❌ ${blockedShortcuts[e.keyCode]} غير مسموح`);
+            return false;
+        }
+    };
+
+    // 2. عرض تنبيهات أنيقة
+    const showAlert = (message) => {
+        const existingAlert = document.getElementById('protection-alert');
+        if (existingAlert) existingAlert.remove();
+        
+        const alertBox = document.createElement('div');
+        alertBox.id = 'protection-alert';
+        alertBox.style = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff4444;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            z-index: 99999;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            font-family: Arial, sans-serif;
+            animation: alertFadeIn 0.3s ease-out;
+            max-width: 300px;
+        `;
+        alertBox.textContent = message;
+        document.body.appendChild(alertBox);
+        
+        setTimeout(() => {
+            alertBox.style.animation = 'alertFadeOut 0.3s ease-in';
+            setTimeout(() => alertBox.remove(), 300);
+        }, 2000);
+    };
+
+    // 3. إضافة أنيميشن للتنبيهات
+    const addStyles = () => {
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes alertFadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes alertFadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+            [draggable="false"] {
+                -webkit-user-drag: none;
+                user-select: none;
+            }
+        `;
+        document.head.appendChild(style);
+    };
+
+    // 4. حماية الصور والمحتوى
+    const protectContent = () => {
+        // حماية الصور
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', 'false');
+        });
+        
+        // حماية النصوص
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
+    };
+
+    // 5. كشف أدوات المطورين (بدون مشاكل في view)
+    const checkDevTools = () => {
+        const threshold = 100;
+        const widthDiff = window.outerWidth - window.innerWidth;
+        const heightDiff = window.outerHeight - window.innerHeight;
+        
+        // تجنب الإيجابيات الخاطئة مع view
+        if ((widthDiff > threshold || heightDiff > threshold) && 
+            !document.hidden && 
+            !/view|embed|frame/i.test(window.name)) {
             document.body.innerHTML = `
                 <div style="
                     display: flex;
@@ -213,56 +303,46 @@ if(window.location.href.indexOf('view-source:') > -1) {
                     padding: 20px;
                 ">
                     <div>
-                        <h1 style="color: #dc3545;">⚠️ تحذير أمان ⚠️</h1>
-                        <p>استخدام أدوات المطورين غير مسموح به في هذا الموقع</p>
-                        <p>سيتم إعادة توجيهك إلى الصفحة الرئيسية خلال 5 ثوان...</p>
+                        <h1 style="color: #dc3545;">⛔ تحذير أمني</h1>
+                        <p>استخدام أدوات المطورين غير مسموح به</p>
+                        <p>سيتم إعادة توجيهك...</p>
                     </div>
                 </div>
             `;
-            
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 5000);
+            setTimeout(() => location.reload(), 3000);
             return true;
         }
         return false;
-    }
-    
-    // 6. منع فتح الموقع في إطارات (iframe)
-    if (window.self !== window.top) {
-        window.top.location.href = window.self.location.href;
-    }
-    
-    // 7. حماية الصور
-    function protectImages() {
-        document.querySelectorAll('img').forEach(img => {
-            img.setAttribute('draggable', 'false');
-            img.style.pointerEvents = 'none';
-            img.style.userSelect = 'none';
-        });
-    }
-    
-    // 8. إعداد مستمعات الأحداث
-    document.addEventListener('contextmenu', blockDefaultActions);
-    document.addEventListener('keydown', blockDefaultActions);
-    document.addEventListener('dragstart', blockDragging);
-    document.addEventListener('DOMContentLoaded', protectImages);
-    
-    // 9. مراقبة أدوات المطورين بشكل دوري
-    setInterval(detectDevTools, 1000);
-    
-    // 10. حماية إضافية ضد أدوات استخراج المحتوى
-    Object.defineProperty(document, 'innerHTML', {
-        set: function(value) {
-            if (value.includes('script') || value.includes('iframe')) {
-                console.error('محاولة حقن كود ضار');
-                return;
-            }
-            this.defaultSetter.call(this, value);
+    };
+
+    // 6. تهيئة الحماية
+    const initProtection = () => {
+        addStyles();
+        protectContent();
+        
+        // تجنب التدخل مع view
+        if (!/view|embed|frame/i.test(window.name)) {
+            document.addEventListener('contextmenu', disableActions);
+            document.addEventListener('keydown', disableActions);
+            setInterval(checkDevTools, 1000);
         }
-    });
+        
+        // منع التضمين في iframe دائماً
+        if (window.self !== window.top) {
+            window.top.location.href = window.self.location.href;
+        }
+    };
+
+    // بدء الحماية بعد تحميل الصفحة
+    if (document.readyState === 'complete') {
+        initProtection();
+    } else {
+        window.addEventListener('load', initProtection);
+    }
 })();
 </script>
+
+
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1837620279187964"
      crossorigin="anonymous"></script>
